@@ -29,18 +29,19 @@ public class NewsClustering {
 	
 	public static int solution(String str1, String str2) {
         int answer = 65536;
-        double tot = 0;
-        List<String> same = new ArrayList<String>();
-        List<String> dif = new ArrayList<String>();
-        
-        List<String> str1List = new ArrayList<String>();
-        List<String> str2List = new ArrayList<String>();
-        List<String> str2List2 = new ArrayList<String>();
+        double result = 0;
+       
+        List<String> tot = new ArrayList<String>(); //합집합
+        List<String> dif = new ArrayList<String>(); //교집합
+        List<String> str1List = new ArrayList<String>(); //str1 리스트
+        List<String> str2List = new ArrayList<String>(); //str2 리스트
+        List<String> str2List2 = new ArrayList<String>(); //str2 리스트2
 
     	str1 = str1.toUpperCase();
         str2 = str2.toUpperCase();
         System.out.println(str1);
         System.out.println(str2);
+        
         
         //리스트에 정리
         if(str1.length() == str2.length()) {
@@ -88,9 +89,9 @@ public class NewsClustering {
             if(str2List.contains(hap)) {
             	str2List.remove(hap);
             }
-            same.add(hap);
+            tot.add(hap);
         }
-        same.addAll(str2List);
+        tot.addAll(str2List);
         
         //교집합 구하기
         for(String cha : str1List) {
@@ -102,23 +103,23 @@ public class NewsClustering {
         
         System.out.println("str1List : "+str1List);
         System.out.println("str2List : "+str2List);
-    	System.out.println("same : "+same);
+    	System.out.println("tot : "+tot);
     	System.out.println("dif : "+dif);
     	
     	
-        if(same.size() == 1) {
-        	tot = (double) str1List.size()/ (double)str2List.size();
+        if(tot.size() == 1) {
+        	result = (double) str1List.size()/ (double)str2List.size();
         }else {
-        	tot = (double) dif.size()/ (double)same.size();
+        	result = (double) dif.size()/ (double)tot.size();
         }
-    	System.out.println("same : "+same.size()+" , dif : "+dif.size()+" , tot : "+tot);
-    	return (int)(answer * tot);
+    	System.out.println("tot : "+tot.size()+" , dif : "+dif.size()+" , result : "+result);
+    	return (int)(answer * result);
         
     }
 	
 	public static int solution3(String str1, String str2) {
 		int answer = 65536;
-		List<String> same = new ArrayList<String>();
+		List<String> tot = new ArrayList<String>();
 		List<String> dif = new ArrayList<String>();
 		
 		List<String> string1 = new ArrayList<String>();
@@ -182,26 +183,26 @@ public class NewsClustering {
 		if(string1.size() > string2.size()) {
 			for(String cha : string2) {
 				if(string2.contains(cha)) {
-					same.add(cha);
+					tot.add(cha);
 					string2.remove(cha);
 				}
 				dif.add(cha);
 				string22.remove(cha);
 			}
 			dif.addAll(string1);
-			same.retainAll(string11);
+			tot.retainAll(string11);
 			
 		}else {
 			for(String cha : string1) {
 				if(string2.contains(cha)) {
 					string2.remove(cha);
-					same.add(cha);
+					tot.add(cha);
 				}
 				dif.add(cha);
 				string11.remove(cha);
 			}
 			dif.addAll(string2);
-			same.retainAll(string22);
+			tot.retainAll(string22);
 			
 		}
 		
@@ -218,7 +219,7 @@ public class NewsClustering {
 //        			//if(string1.matches("[A-Z][A-Z]") && string2.matches("[A-Z][A-Z]")) {
 //        				System.out.println("string1 : "+string1.get(i)+" , string2 : "+string2.get(i) );
 //        				if(string1.get(i).equals(string2.get(i))) {
-//        					same.add(string1.get(i));
+//        					tot.add(string1.get(i));
 //        					dif.add(string1.get(i));
 //        				}else {
 //        					dif.add(string1.get(i));
@@ -232,7 +233,7 @@ public class NewsClustering {
 //        			//if(string1.matches("[A-Z][A-Z]") && string2.matches("[A-Z][A-Z]")) {
 //        				System.out.println("string1 : "+string1.get(i)+" , string2 : "+string2.get(i) );
 //        				if(string1.get(i).equals(string2.get(i))) {
-//        					same.add(string1.get(i));
+//        					tot.add(string1.get(i));
 //        					dif.add(string1.get(i));
 //        				}else {
 //        					dif.add(string1.get(i));
@@ -243,36 +244,36 @@ public class NewsClustering {
 //        	}
 //        	
 //        	
-//        	System.out.println(same);
+//        	System.out.println(tot);
 //        	System.out.println(dif);
 //             
-//        	double tot = (double) same.size()/ (double)dif.size();
-//        	System.out.println("same : "+same.size()+" , dif : "+dif.size()+" , tot : "+tot);
-//        	return (int)(answer * tot);
+//        	double result = (double) tot.size()/ (double)dif.size();
+//        	System.out.println("tot : "+tot.size()+" , dif : "+dif.size()+" , result : "+result);
+//        	return (int)(answer * result);
 //        }
 		
 		System.out.println("string1 : "+string1);
 		System.out.println("string11 : "+string11);
 		System.out.println("string2 : "+string2);
 		System.out.println("string22 : "+string22);
-		System.out.println("same : "+same);
+		System.out.println("tot : "+tot);
 		System.out.println("dif : "+dif);
-		double tot;
-		if(same.size() == 1) {
-			tot = (double) string1.size()/ (double)string2.size();
+		double result;
+		if(tot.size() == 1) {
+			result = (double) string1.size()/ (double)string2.size();
 		}else {
-			tot = (double) same.size()/ (double)dif.size();
+			result = (double) tot.size()/ (double)dif.size();
 		}
-//    	double tot = (double) same.size()/ (double)dif.size();
-		System.out.println("same : "+same.size()+" , dif : "+dif.size()+" , tot : "+tot);
-		System.out.println(3/2*tot);
-		return (int)(answer * tot);
+//    	double result = (double) tot.size()/ (double)dif.size();
+		System.out.println("tot : "+tot.size()+" , dif : "+dif.size()+" , result : "+result);
+		System.out.println(3/2*result);
+		return (int)(answer * result);
 		
 	}
 	
 	public static int solution2(String str1, String str2) {
 		int answer = 65536;
-		List<String> same = new ArrayList<String>();
+		List<String> tot = new ArrayList<String>();
 		List<String> dif = new ArrayList<String>();
 		
 		str1 = str1.toUpperCase();
@@ -287,7 +288,7 @@ public class NewsClustering {
 			if(string1.matches("[A-Z][A-Z]") && string2.matches("[A-Z][A-Z]")) {
 				System.out.println("string1 : "+string1+" , string2 : "+string2 );
 				if(string1.equals(string2)) {
-					same.add(string1);
+					tot.add(string1);
 					dif.add(string1);
 				}else {
 					dif.add(string1);
@@ -295,17 +296,17 @@ public class NewsClustering {
 				}
 			}
 		}
-		Collections.sort(same);
+		Collections.sort(tot);
 		Collections.sort(dif);
 		
-		if(same.equals(dif)) {
+		if(tot.equals(dif)) {
 			return 1*answer;
 		}else {
 			System.out.println(dif);
 			
-			double tot = (double) same.size()/ (double)dif.size();
-			System.out.println("same : "+same.size()+" , dif : "+dif.size()+" , tot : "+tot);
-			return (int)(answer * tot);
+			double result = (double) tot.size()/ (double)dif.size();
+			System.out.println("tot : "+tot.size()+" , dif : "+dif.size()+" , result : "+result);
+			return (int)(answer * result);
 		}
 		
 	}
