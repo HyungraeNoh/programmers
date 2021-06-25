@@ -30,7 +30,19 @@ public class NewsClustering {
 	public static int solution(String str1, String str2) {
         int answer = 65536;
         double result = 0;
-       
+        List<String> test = new ArrayList<String>(); 
+        List<String> min = new ArrayList<String>(); 
+        min.add("1");
+        for(int i=0; i<10; i++) {
+        	test.add("1");
+        }
+        test.add("2");
+        test.removeAll(min);
+        for(int i=0; i<5; i++) {
+        	test.remove(i);
+        }
+        System.out.println(test);
+        
         List<String> tot = new ArrayList<String>(); //합집합
         List<String> dif = new ArrayList<String>(); //교집합
         List<String> str1List = new ArrayList<String>(); //str1 리스트
