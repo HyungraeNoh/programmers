@@ -12,7 +12,7 @@ public class Carpet {
 		int brown3 = 24;
 		int yellow3 = 24;
 		
-		System.out.println("solution : "+solution(brown, yellow));
+		System.out.println("solution : "+solution2(brown, yellow));
 	}
 	
 	public static int[] solution(int brown, int yellow) {
@@ -37,5 +37,13 @@ public class Carpet {
         }
         return answer;
     }
+	
+	public static int solution2(int brown, int yellow) {
+		for(int i=1; i<=200; i++) {
+			System.out.println("value : "+(i % 100));
+		}
+		
+		return 1;
+	}
 
 }
