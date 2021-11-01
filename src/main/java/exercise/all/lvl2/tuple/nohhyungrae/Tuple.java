@@ -22,12 +22,29 @@ public class Tuple {
 		List<String> minusList = new LinkedList<String>();
 		String[] arr =  s.substring(2, s.length()-2).split("\\},\\{");
 		
+		//익명클래스 일반식
 		Arrays.sort(arr, new Comparator<String>() {
 			@Override
 			public int compare(String s1, String s2) {
 				return s1.length() - s2.length();
 			}
 		});
+		
+		//익명클래스 람다식
+		Arrays.sort(arr, (s1,s2) -> {return s1.length() - s2.length();});
+		
+		answer = new int[arr.length];
+		for(String a : arr) {
+			String[] intArr = a.split(",");
+			for(String b : intArr) {
+				if(minusList.contains(b)){
+					continue;
+				}else {
+					answer[index++] = Integer.parseInt(b);
+					minusList.add(b);
+				}
+			}
+		}
 		
 		answer = new int[arr.length];
 		for(String a : arr) {
