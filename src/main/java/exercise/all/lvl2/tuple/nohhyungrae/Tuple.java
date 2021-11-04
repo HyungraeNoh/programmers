@@ -46,19 +46,6 @@ public class Tuple {
 			}
 		}
 		
-		answer = new int[arr.length];
-		for(String a : arr) {
-			String[] intArr = a.split(",");
-			for(String b : intArr) {
-				if(minusList.contains(b)){
-					continue;
-				}else {
-					answer[index++] = Integer.parseInt(b);
-					minusList.add(b);
-				}
-			}
-		}
-		
 		for(int a : answer) {
 			System.out.println(a);
 		}
@@ -93,4 +80,6 @@ public class Tuple {
 		
 		return answer;
 	}
+
+
 }
