@@ -102,10 +102,6 @@ public class ColoringBook {
 			return;
 		}
 		
-
-		
-		
-		
 	}
 	
 	public static int[][] makePicture(int[][] picture){
