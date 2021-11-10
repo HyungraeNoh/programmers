@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.PriorityQueue;
+import java.util.Stack;
 
 /*
  * 입력형식
@@ -23,6 +25,7 @@ public class ColoringBook {
 	private int[][] picture;
 	private int numberOfArea;
 	private int maxSizeOfOneArea;
+	private PriorityQueue<Integer> que = new PriorityQueue<>(Collections.reverseOrder());
 	
 	public ColoringBook(int m, int n, int[][] picture) {
 		this.m = m;
@@ -51,16 +54,74 @@ public class ColoringBook {
 	
 	public int[] solution() {
 		int[] answer = new int[2];
-		
+		printPicture();
 		for(int i=0; i<m; i++) {
 			for(int j=0; j<n; j++) {
 				if(picture[i][j] !=0) {
-					maxSizeOfOneArea++;
-					findNumber(m, n,picture[i][j]);
+					
+					int number = picture[i][j];
+					picture[i][j] = 0;
+					findNumber(i, j,number);
+					que.add(maxSizeOfOneArea);
+					maxSizeOfOneArea = 0;
 				}
 			}
 		}
 		
+		printPicture();
+		
+		answer[0] = numberOfArea;
+        answer[1] = que.peek();
+        System.out.println("answer : [ "+numberOfArea+" , "+maxSizeOfOneArea+" ]");
+		return answer;
+	}
+	
+	public void findNumber(int m, int n, int num) {
+		printPicture();
+		
+		int[] origin = {m,n};
+		Stack<int[]> coordinateStack = new Stack<>();
+		
+		
+		coordinateStack.add(origin);
+		
+		includeCoordinates(origin, coordinateStack);
+
+//		if(m-1 >= 0 && picture[n][m-1] == num) {
+//			maxSizeOfOneArea++;
+//			picture[n][m-1] = 0;
+//			findNumber(m-1,n,num);
+//		}else if(n-1 >= 0 && picture[n-1][m] == num) {
+//			maxSizeOfOneArea++;
+//			picture[n-1][m] = 0;
+//			findNumber(m,n-1,num);
+//		}else if(n+1 < picture.length && picture[n+1][m] == num) {
+//			maxSizeOfOneArea++;
+//			picture[n+1][m] = 0;
+//			findNumber(m,n+1,num);
+//		}else if(m+1 < picture[n].length && picture[n][m+1] == num) {
+//			maxSizeOfOneArea++;
+//			picture[n][m+1] = 0;
+//			findNumber(m+1,n,num);
+//		}else{
+//			return;
+//		}
+		
+	}
+	
+	private int[][] makePicture(int[][] picture){
+		int[][] cpPicture = picture;
+		
+		for (int i = 0; i < cpPicture.length; i++) {
+			for (int j = 0; j < cpPicture[i].length; j++) {
+				cpPicture[i][j] = picture[i][j];
+			}
+		}
+		
+		return cpPicture;
+	}
+	
+	private void printPicture() {
 		for(int i : picture[0]) { System.out.print("="); }
 		System.out.println();
 		
@@ -73,55 +134,14 @@ public class ColoringBook {
 		
 		for(int i : picture[0]) { System.out.print("="); }
 		System.out.println();
-		
-		answer[0] = numberOfArea;
-        answer[1] = maxSizeOfOneArea;
-        System.out.println("answer : [ "+numberOfArea+" , "+maxSizeOfOneArea+" ]");
-		return answer;
 	}
 	
-	public void findNumber(int m, int n, int num) {
-		
-		if(picture[n+1][m] == num) {
-			maxSizeOfOneArea++;
-			picture[n+1][m] = 0;
-			findNumber(m,n+1,num);
-		}else if(picture[n-1][m] == num) {
-			maxSizeOfOneArea++;
-			picture[n-1][m] = 0;
-			findNumber(m,n-1,num);
-		}else if(picture[n][m+1] == num) {
-			maxSizeOfOneArea++;
-			picture[n][m+1] = 0;
-			findNumber(m+1,n,num);
-		}else if(picture[n][m-1] == num) {
-			maxSizeOfOneArea++;
-			picture[n][m-1] = 0;
-			findNumber(m-1,n,num);
-		}else{
-			return;
-		}
-		
-	}
-	
-	public static int[][] makePicture(int[][] picture){
-		int[][] cpPicture = picture;
-		
-		for(int i : picture[0]) { System.out.print("="); }
-		System.out.println();
-		
-		for (int i = 0; i < cpPicture.length; i++) {
-			for (int j = 0; j < cpPicture[i].length; j++) {
-				cpPicture[i][j] = picture[i][j];
-				System.out.print(cpPicture[i][j]);
-			}
-			System.out.println();
-		}
-		
-		for(int i : picture[0]) { System.out.print("="); }
-		System.out.println();
-		
-		return cpPicture;
+	private Stack<int[]> includeCoordinates(int[] origin, Stack<int[]> coordinateStack){
+		coordinateStack.add(new int[]{origin[0]+1, origin[0]});
+		coordinateStack.add(new int[]{origin[0]-1, origin[0]});
+		coordinateStack.add(new int[]{origin[0], origin[0]+1});
+		coordinateStack.add(new int[]{origin[0], origin[0]-1});
+		return coordinateStack;
 	}
 	
 	static Map<Integer,Integer> numMap = new LinkedHashMap<>();

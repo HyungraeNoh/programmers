@@ -34,9 +34,7 @@ public class ScovilleScale {
 	public int solution() {
 		int answer = 0;
 
-		for (int s : scoville) {
-			que.add(s);
-		}
+		for (int s : scoville) { que.add(s); }
 
 		while (true) {
 
@@ -114,12 +112,12 @@ public class ScovilleScale {
 
 	}
 
-	public static List<Integer> sortValue(List<Integer> list) {
+	private static List<Integer> sortValue(List<Integer> list) {
 		Collections.sort(list);
 		return list;
 	}
 
-	public static List<Integer> removeList(List<Integer> list) {
+	private static List<Integer> removeList(List<Integer> list) {
 		for (int i = 0; i < 2; i++) {
 			list.remove(0);
 		}
@@ -178,7 +176,7 @@ public class ScovilleScale {
 		return answer;
 	}
 
-	public static int[] minusArr(int[] arr) {
+	private static int[] minusArr(int[] arr) {
 		int[] arr2 = new int[arr.length - 1];
 		for (int j = 0; j < arr.length - 1; j++) {
 			arr2[j] = arr[j + 1];
